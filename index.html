@@ -8,13 +8,10 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: #fff;
+    background: #f5f0e8;
     color: #111;
     font-family: Georgia, serif;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   .page {
@@ -26,7 +23,8 @@
     width: 100%;
     padding: 4rem 2rem;
     text-align: center;
-    animation: fadein 1.2s ease;
+    animation: fadein 1.4s ease;
+    background: #f5f0e8;
   }
 
   .page.active { display: flex; }
@@ -37,69 +35,67 @@
   }
 
   .cover-number {
-    font-size: clamp(8rem, 30vw, 18rem);
+    font-size: clamp(8rem, 32vw, 20rem);
     font-weight: 900;
     color: #ff0000;
-    font-family: Arial Black, sans-serif;
-    line-height: 1;
+    font-family: Arial Black, Arial, sans-serif;
+    line-height: 0.9;
   }
 
   .cover-word {
-    font-size: clamp(2rem, 8vw, 5rem);
+    font-size: clamp(2.5rem, 9vw, 6rem);
     font-weight: 900;
     color: #ff0000;
-    font-family: Arial Black, sans-serif;
-    letter-spacing: 0.05em;
-    margin-top: -0.5rem;
+    font-family: Arial Black, Arial, sans-serif;
+    letter-spacing: 0.04em;
+    margin-top: 0.1em;
   }
 
+  .cover-reads {
+    margin-top: 3rem;
+    font-size: 0.75rem;
+    color: #bbb;
+    font-family: Arial, sans-serif;
+    letter-spacing: 0.15em;
+  }
+
+  .cover-reads span { color: #999; }
+
   .roman {
-    font-size: 0.9rem;
-    letter-spacing: 0.2em;
-    color: #999;
-    margin-bottom: 2.5rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: #aaa;
+    margin-bottom: 2rem;
     font-family: Arial, sans-serif;
   }
 
   .haiku {
     font-size: clamp(1.3rem, 4vw, 2rem);
-    line-height: 2.2;
+    line-height: 2.4;
     font-style: italic;
     color: #111;
-    max-width: 500px;
+    max-width: 520px;
   }
 
-  .haiku span {
-    display: block;
-  }
+  .haiku span { display: block; }
 
   .epilogo-title {
-    font-size: 0.85rem;
-    letter-spacing: 0.25em;
-    color: #999;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    color: #aaa;
     margin-bottom: 2.5rem;
     font-family: Arial, sans-serif;
     text-transform: uppercase;
   }
 
   .epilogo-text {
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
-    line-height: 2;
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    line-height: 1.7;
     color: #333;
-    max-width: 560px;
-    font-style: normal;
+    max-width: 540px;
   }
 
-  .epilogo-text p {
-    margin-bottom: 1.2rem;
-  }
-
-  .epilogo-final {
-    margin-top: 2rem;
-    font-size: clamp(0.95rem, 2.2vw, 1.1rem);
-    color: #888;
-    font-style: italic;
-  }
+  .epilogo-text p { margin-bottom: 0.6rem; }
 
   .nav {
     position: fixed;
@@ -107,7 +103,7 @@
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem;
     align-items: center;
   }
 
@@ -115,8 +111,8 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: #bbb;
-    font-size: 1.5rem;
+    color: #ccc;
+    font-size: 1.4rem;
     padding: 0.5rem;
     transition: color 0.2s;
     font-family: Arial, sans-serif;
@@ -124,34 +120,15 @@
 
   .nav button:hover { color: #ff0000; }
 
-  .nav .counter {
-    font-size: 0.75rem;
-    color: #ccc;
-    letter-spacing: 0.1em;
-    font-family: Arial, sans-serif;
-    min-width: 3rem;
-    text-align: center;
-  }
-
-  .readers {
-    position: fixed;
-    top: 1.5rem;
-    right: 1.5rem;
-    font-size: 0.7rem;
-    color: #ddd;
-    font-family: Arial, sans-serif;
-    letter-spacing: 0.05em;
-  }
-
   .start-btn {
     margin-top: 3rem;
     background: none;
-    border: 1px solid #ddd;
-    color: #bbb;
+    border: 1px solid #ccc;
+    color: #aaa;
     font-family: Arial, sans-serif;
-    font-size: 0.8rem;
-    letter-spacing: 0.2em;
-    padding: 0.75rem 2rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    padding: 0.75rem 2.5rem;
     cursor: pointer;
     transition: all 0.3s;
   }
@@ -164,16 +141,13 @@
 </head>
 <body>
 
-<div class="readers" id="readers"></div>
-
-<!-- Portada -->
 <div class="page active" id="page-0">
   <div class="cover-number">50</div>
   <div class="cover-word">minutos</div>
+  <div class="cover-reads" id="reads-display"></div>
   <button class="start-btn" onclick="next()">comenzar</button>
 </div>
 
-<!-- Haikus -->
 <div class="page" id="page-1">
   <div class="roman">I</div>
   <div class="haiku">
@@ -264,7 +238,6 @@
   </div>
 </div>
 
-<!-- Epílogo -->
 <div class="page" id="page-11">
   <div class="epilogo-title">Epílogo</div>
   <div class="epilogo-text">
@@ -275,25 +248,41 @@
     <p>Pero al final, nada cambia:</p>
     <p>el tiempo pasa igual.</p>
   </div>
-  <div class="epilogo-final">...y vuelta a empezar</div>
 </div>
 
-<!-- Navegación -->
 <div class="nav" id="nav" style="display:none;">
   <button onclick="prev()" id="btn-prev">←</button>
-  <span class="counter" id="counter"></span>
-  <button onclick="next()" id="btn-next">→</button>
+  <button onclick="next()">→</button>
 </div>
 
 <script>
 const TOTAL = 12;
 let current = 0;
 
-function updateReaders() {
-  const count = parseInt(localStorage.getItem('50min-readers') || '0') + 1;
-  localStorage.setItem('50min-readers', count);
-  const el = document.getElementById('readers');
-  if (count > 1) el.textContent = count + ' lectores';
+const STORAGE_KEY = '50min-reads';
+
+async function getReads() {
+  try {
+    const r = await window.storage.get(STORAGE_KEY, true);
+    return r ? parseInt(r.value) || 0 : 0;
+  } catch(e) { return 0; }
+}
+
+async function incrementReads() {
+  try {
+    const count = await getReads();
+    const n = count + 1;
+    await window.storage.set(STORAGE_KEY, String(n), true);
+    return n;
+  } catch(e) { return null; }
+}
+
+async function showReads() {
+  const count = await getReads();
+  const el = document.getElementById('reads-display');
+  if (count > 0) {
+    el.innerHTML = '<span>' + count + '</span> ' + (count === 1 ? 'lectura' : 'lecturas');
+  }
 }
 
 function showPage(n) {
@@ -301,28 +290,26 @@ function showPage(n) {
   document.getElementById('page-' + n).classList.add('active');
 
   const nav = document.getElementById('nav');
-  const counter = document.getElementById('counter');
   const btnPrev = document.getElementById('btn-prev');
-  const btnNext = document.getElementById('btn-next');
 
   if (n === 0) {
     nav.style.display = 'none';
   } else {
     nav.style.display = 'flex';
-    counter.textContent = n + ' / ' + (TOTAL - 1);
-    btnPrev.style.visibility = 'visible';
-    btnNext.style.visibility = n < TOTAL - 1 ? 'visible' : 'hidden';
+    btnPrev.style.visibility = n > 1 ? 'visible' : 'hidden';
   }
 }
 
 function next() {
-  if (current < TOTAL - 1) {
+  if (current === 0) {
+    incrementReads().then(showReads);
+    current = 1;
+  } else if (current < TOTAL - 1) {
     current++;
-    showPage(current);
   } else {
-    current = 0;
-    showPage(0);
+    current = 1;
   }
+  showPage(current);
 }
 
 function prev() {
@@ -333,8 +320,8 @@ function prev() {
 }
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight' || e.key === ' ') next();
-  if (e.key === 'ArrowLeft') prev();
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
 });
 
 let touchStartX = 0;
@@ -344,7 +331,7 @@ document.addEventListener('touchend', e => {
   if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
 });
 
-updateReaders();
+showReads();
 showPage(0);
 </script>
 </body>
