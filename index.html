@@ -338,12 +338,12 @@ function showPage(n) {
 
 function next() {
   if (current === 0) {
-    incrementReads().then(showReads);
     current = 1;
   } else if (current < TOTAL - 1) {
     current++;
   } else {
     current = 1;
+    incrementReads().then(showReads);
   }
   showPage(current);
 }
