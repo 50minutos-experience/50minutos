@@ -284,12 +284,16 @@
 const TOTAL = 12;
 let current = 0;
 
-const STORAGE_KEY = '50min-reads';
+const SUPABASE_URL = 'https://hsrsbwdufneuzxbenpvs.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_MYDHnYKmFLMa3qgFeXCkYQ_IGWme0V7';
 
 async function getReads() {
   try {
-    const r = await window.storage.get(STORAGE_KEY, true);
-    return r ? parseInt(r.value) || 0 : 0;
+    const r = await fetch(SUPABASE_URL + '/rest/v1/reads?id=eq.1', {
+      headers: { 'apikey': SUPABASE_KEY }
+    });
+    const data = await r.json();
+    return data[0]?.count || 0;
   } catch(e) { return 0; }
 }
 
@@ -297,9 +301,16 @@ async function incrementReads() {
   try {
     const count = await getReads();
     const n = count + 1;
-    await window.storage.set(STORAGE_KEY, String(n), true);
+    await fetch(SUPABASE_URL + '/rest/v1/reads?id=eq.1', {
+      method: 'PATCH',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ count: n })
+    });
     return n;
-  } catch(e) { return null; }
+  } catch(e) { return 0; }
 }
 
 async function showReads() {
