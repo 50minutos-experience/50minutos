@@ -356,9 +356,9 @@ function next() {
     current = 1;
   } else if (current < TOTAL - 1) {
     current++;
+    if(current == TOTAL - 1) incrementReads().then(showReads);
   } else {
     current = 1;
-    incrementReads().then(showReads);
   }
   showPage(current);
 }
